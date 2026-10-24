@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048</title>
+    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="2048.css">
+    <script src="game-catalog.js" defer></script>
+    <script src="main.js" defer></script>
+    <script src="navigation.js" defer></script>
+</head>
+
+<body data-game-page="2048">
+    <main class="game-page">
+        <nav class="site-nav" aria-label="Main navigation">
+            <button class="brand-button" type="button" data-navigation-target="Home">Little Arcade</button>
+            <div class="site-nav-actions">
+                <button class="nav-button" type="button" data-navigation-target="games">All games</button>
+            </div>
+        </nav>
+        <section class="game-play-area" aria-labelledby="game-title">
+            <section class="game-heading">
+                <div>
+                    <p class="eyebrow">Puzzle</p>
+                    <h1 id="game-title">2048</h1>
+                </div>
+                <p id="game-instructions" class="instructions">Use the arrow keys or swipe to slide. Matching tiles combine.</p>
+            </section>
+            <div id="gameview" class="game-grid" role="grid" aria-label="2048 game board" aria-describedby="game-instructions" tabindex="0">
+                <div class="grid-cell" role="gridcell" data-row="1" data-col="1"></div>
+                <div class="grid-cell" role="gridcell" data-row="1" data-col="2"></div>
+                <div class="grid-cell" role="gridcell" data-row="1" data-col="3"></div>
+                <div class="grid-cell" role="gridcell" data-row="1" data-col="4"></div>
+
+                <div class="grid-cell" role="gridcell" data-row="2" data-col="1"></div>
+                <div class="grid-cell" role="gridcell" data-row="2" data-col="2"></div>
+                <div class="grid-cell" role="gridcell" data-row="2" data-col="3"></div>
+                <div class="grid-cell" role="gridcell" data-row="2" data-col="4"></div>
+
+                <div class="grid-cell" role="gridcell" data-row="3" data-col="1"></div>
+                <div class="grid-cell" role="gridcell" data-row="3" data-col="2"></div>
+                <div class="grid-cell" role="gridcell" data-row="3" data-col="3"></div>
+                <div class="grid-cell" role="gridcell" data-row="3" data-col="4"></div>
+
+                <div class="grid-cell" role="gridcell" data-row="4" data-col="1"></div>
+                <div class="grid-cell" role="gridcell" data-row="4" data-col="2"></div>
+                <div class="grid-cell" role="gridcell" data-row="4" data-col="3"></div>
+                <div class="grid-cell" role="gridcell" data-row="4" data-col="4"></div>
+            </div>
+        </section>
+    </main>
+    <div id="game-over" class="game-over" role="dialog" aria-modal="true" aria-labelledby="game-over-title" hidden>
+        <div class="game-over-content">
+            <p class="eyebrow">No more moves</p>
+            <h2 id="game-over-title">Game over</h2>
+            <div class="game-over-buttons">
+                <button id="reset" type="button">Play again</button>
+                <button type="button" data-navigation-target="games">Back to games</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

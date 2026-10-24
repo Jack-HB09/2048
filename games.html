@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games - Little Arcade</title>
+    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="games.css">
+    <script src="game-catalog.js" defer></script>
+    <script src="navigation.js" defer></script>
+</head>
+
+<body>
+    <main class="games-page">
+        <nav class="site-nav" aria-label="Main navigation">
+            <button class="brand-button" type="button" data-navigation-target="Home">Little Arcade</button>
+            <div class="site-nav-actions">
+                <button class="nav-button" type="button" data-navigation-target="Home">Home</button>
+            </div>
+        </nav>
+        <section class="library" aria-labelledby="library-title">
+            <div class="library-heading">
+                <div>
+                    <p class="eyebrow">The game library</p>
+                    <h1 id="library-title">Find your next break.</h1>
+                </div>
+                <p class="library-count">A hand-picked collection<br>of browser games</p>
+            </div>
+            <div class="game-list" data-game-list aria-label="Available games"></div>
+        </section>
+    </main>
+</body>
+
+</html>
