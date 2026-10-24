@@ -1,23 +1,52 @@
-const DEFAULT_TILE_COLOR = "#3c3a32";
-
-const TILE_COLORS = {
-    2: "#eee4da",
-    4: "#ede0c8",
-    8: "#f2b179",
-    16: "#f59563",
-    32: "#f67c5f",
-    64: "#f65e3b",
-    128: "#edcf72",
-    256: "#edcc61",
-    512: "#edc850",
-    1024: "#edc53f",
-    2048: "#edc22e"
+const TILE_PALETTES = {
+    classic: {
+        2: ["#eee4da", "#776e65"],
+        4: ["#ede0c8", "#776e65"],
+        8: ["#f2b179", "#51483d"],
+        16: ["#f59563", "#51483d"],
+        32: ["#f67c5f", "#51483d"],
+        64: ["#f65e3b", "#372f26"],
+        128: ["#edcf72", "#514a3d"],
+        256: ["#edcc61", "#514a3d"],
+        512: ["#edc850", "#514a3d"],
+        1024: ["#edc53f", "#514a3d"],
+        2048: ["#edc22e", "#514a3d"]
+    },
+    ocean: {
+        2: ["#e0f2fe", "#0c4a6e"],
+        4: ["#bae6fd", "#0c4a6e"],
+        8: ["#7dd3fc", "#082f49"],
+        16: ["#38bdf8", "#082f49"],
+        32: ["#0ea5e9", "#082f49"],
+        64: ["#0284c7", "#ffffff"],
+        128: ["#0369a1", "#ffffff"],
+        256: ["#0e7490", "#ffffff"],
+        512: ["#0f766e", "#ffffff"],
+        1024: ["#115e59", "#ffffff"],
+        2048: ["#134e4a", "#ffffff"]
+    },
+    forest: {
+        2: ["#e8f5e9", "#1b5e20"],
+        4: ["#c8e6c9", "#1b5e20"],
+        8: ["#a5d6a7", "#1b5e20"],
+        16: ["#81c784", "#123d18"],
+        32: ["#66bb6a", "#123d18"],
+        64: ["#4caf50", "#123d18"],
+        128: ["#388e3c", "#ffffff"],
+        256: ["#2e7d32", "#ffffff"],
+        512: ["#558b2f", "#ffffff"],
+        1024: ["#33691e", "#ffffff"],
+        2048: ["#1b5e20", "#ffffff"]
+    }
 };
+
+const DEFAULT_PALETTE = "classic";
 
 class Grid {
     constructor(element) {
         this.element = element;
         this.cells = Array.from(element.querySelectorAll(".grid-cell"));
+        this.paletteName = DEFAULT_PALETTE;
         this.rowCount = Math.max(...this.cells.map((cell) => Number(cell.dataset.row)));
         this.columnCount = Math.max(...this.cells.map((cell) => Number(cell.dataset.col)));
         this.moveDirections = {
@@ -51,6 +80,23 @@ class Grid {
         );
     }
 
+    setPalette(paletteName) {
+        if (!Object.hasOwn(TILE_PALETTES, paletteName)) {
+            throw new Error(`Unknown tile colour palette: ${paletteName}`);
+        }
+
+        this.paletteName = paletteName;
+        this.cells.forEach((cell) => this.styleCell(cell));
+    }
+
+    styleCell(cell) {
+        const value = Number(cell.textContent.trim());
+        const colors = TILE_PALETTES[this.paletteName][value];
+
+        cell.style.backgroundColor = colors ? colors[0] : "";
+        cell.style.color = colors ? colors[1] : "";
+    }
+
     addRandomTile() {
         const emptyCells = this.cells.filter((cell) => cell.textContent.trim() === "");
 
@@ -63,7 +109,7 @@ class Grid {
         const value = Math.random() < 0.9 ? 2 : 4;
 
         cell.textContent = String(value);
-        cell.style.backgroundColor = TILE_COLORS[value] || DEFAULT_TILE_COLOR;
+        this.styleCell(cell);
 
         return true;
     }
@@ -72,6 +118,7 @@ class Grid {
         this.cells.forEach((cell) => {
             cell.textContent = "";
             cell.style.backgroundColor = "";
+            cell.style.color = "";
         });
     }
 
@@ -140,9 +187,7 @@ class Grid {
                 }
 
                 cell.textContent = text;
-                cell.style.backgroundColor = value === undefined
-                    ? ""
-                    : TILE_COLORS[value] || DEFAULT_TILE_COLOR;
+                this.styleCell(cell);
             });
         }
         if (changed) {
@@ -157,6 +202,7 @@ const gameGridElement = document.querySelector("#gameview");
 const gameGrid = new Grid(gameGridElement);
 const gameOverElement = document.querySelector("#game-over");
 const resetButton = document.querySelector("#reset");
+const colourSelect = document.querySelector("#colour-select");
 
 function updateGameOver() {
     const isGameOver = !gameGrid.hasMovesAvailable();
@@ -178,6 +224,10 @@ function startNewGame() {
 }
 
 resetButton.addEventListener("click", startNewGame);
+colourSelect.addEventListener("change", () => {
+    gameGrid.setPalette(colourSelect.value);
+});
+gameGrid.setPalette(colourSelect.value);
 startNewGame();
 
 function handleMove(direction) {
