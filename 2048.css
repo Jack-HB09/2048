@@ -1,9 +1,20 @@
-body[data-game-page] {
-    background: var(--game-background, #faf8ef);
+body[data-game-page="2048"] {
+    --game-background: var(--palette-background, #faf8ef);
+    --game-surface: var(--palette-surface, #fffdf5);
+    --game-accent: var(--palette-accent, #edc22e);
+    --game-secondary: var(--palette-secondary, #f2b179);
+    --game-ink: var(--palette-ink, #4b3822);
+    background: var(--game-background);
+}
+
+html[data-site-theme="dark"] body[data-game-page="2048"] {
+    --game-background: var(--site-background);
+    --game-surface: var(--site-surface);
+    --game-ink: var(--site-ink);
 }
 
 .game-page {
-    width: min(100% - 40px, 900px);
+    width: min(100% - 40px, 1050px);
     min-height: 100vh;
     margin: 0 auto;
     padding: 24px 0 48px;
@@ -13,7 +24,7 @@ body[data-game-page] {
     padding: 0;
     border: 0;
     background: transparent;
-    color: var(--color-ink);
+    color: var(--site-ink);
     cursor: pointer;
     font-size: 1.05rem;
     font-weight: 750;
@@ -21,7 +32,7 @@ body[data-game-page] {
 }
 
 .brand-button:hover {
-    color: var(--color-green);
+    color: var(--game-accent);
 }
 
 #Options-area {
@@ -36,13 +47,13 @@ body[data-game-page] {
     align-items: center;
     gap: 12px;
     padding: 9px 10px 9px 14px;
-    border: 1px solid #e5decb;
+    border: 1px solid color-mix(in srgb, var(--game-accent), transparent 72%);
     border-radius: 10px;
     background: var(--game-surface, #fffdf5);
 }
 
 .option-label {
-    color: #635c51;
+    color: var(--game-ink);
     font-size: 0.88rem;
     font-weight: 650;
 }
@@ -50,17 +61,17 @@ body[data-game-page] {
 .option {
     min-height: 38px;
     padding: 0 34px 0 11px;
-    border: 1px solid #c9bda9;
-    border-radius: 7px;
-    background-color: #fffefa;
-    color: #51483d;
+    border: 1px solid color-mix(in srgb, var(--game-accent), transparent 60%);
+    border-radius: 12px;
+    background-color: var(--game-surface);
+    color: var(--game-ink);
     cursor: pointer;
     font: inherit;
     font-size: 0.9rem;
 }
 
 .option:hover {
-    border-color: #8c7a61;
+    border-color: var(--game-accent);
 }
 
 .option:focus-visible {
@@ -70,10 +81,11 @@ body[data-game-page] {
 
 .game-play-area {
     display: grid;
+    width: 100%;
     justify-items: center;
     gap: 18px;
     padding: 0px 20px 36px 20px;
-    border: 1px solid #e5decb;
+    border: 1px solid color-mix(in srgb, var(--game-accent), transparent 72%);
     border-radius: 18px;
     background: var(--game-background);
 }
@@ -87,12 +99,12 @@ body[data-game-page] {
 }
 
 .game-heading .eyebrow {
-    color: #826d37;
+    color: var(--game-accent);
 }
 
 .game-heading h1 {
     margin: 0;
-    color: #776e65;
+    color: var(--game-ink);
     font-size: clamp(2.4rem, 7vw, 3.5rem);
     letter-spacing: -0.07em;
     line-height: 1;
@@ -101,13 +113,13 @@ body[data-game-page] {
 .instructions {
     max-width: 250px;
     margin: 0;
-    color: #635c51;
+    color: var(--site-muted);
     font-size: 0.9rem;
     line-height: 1.5;
 }
 
 .game-grid {
-    --cell-size: min(18vw, 104px);
+    --cell-size: min(21vw, 136px);
     --tile-gap: clamp(6px, 1.5vw, 10px);
 
     display: grid;
@@ -116,9 +128,9 @@ body[data-game-page] {
     gap: var(--tile-gap);
     width: fit-content;
     padding: var(--tile-gap);
-    border: 1px solid #ad9e8f;
+    border: 1px solid color-mix(in srgb, var(--game-accent), transparent 55%);
     border-radius: 12px;
-    background: #bbada0;
+    background: var(--palette-board, #bbada0);
     box-shadow: 0 8px 22px rgb(74 57 40 / 12%);
     touch-action: none;
     user-select: none;
@@ -137,8 +149,8 @@ body[data-game-page] {
     justify-content: center;
     overflow: hidden;
     border-radius: 7px;
-    background-color: #cdc1b4;
-    color: #574d43;
+    background-color: var(--palette-empty-cell, #cdc1b4);
+    color: var(--game-ink);
     font-size: clamp(1.25rem, 6vw, 2.7rem);
     font-weight: 750;
     transition: background-color 120ms ease;
@@ -161,7 +173,7 @@ body[data-game-page] {
 .game-over-content {
     width: min(100%, 380px);
     padding: 32px 24px;
-    border: 1px solid #e5decb;
+    border: 1px solid color-mix(in srgb, var(--game-accent), transparent 72%);
     border-radius: 16px;
     background: var(--game-surface, #fffdf5);
     color: var(--game-ink, #4b3822);
@@ -169,12 +181,12 @@ body[data-game-page] {
 }
 
 .game-over-content .eyebrow {
-    color: #826d37;
+    color: var(--game-accent);
 }
 
 .game-over-content h2 {
     margin: 0 0 22px;
-    color: #51483d;
+    color: var(--game-ink);
     font-size: 2rem;
     letter-spacing: -0.04em;
 }
@@ -192,15 +204,15 @@ body[data-game-page] {
     border: 1px solid var(--game-accent, #79654b);
     border-radius: 8px;
     background: var(--game-accent, #79654b);
-    color: var(--game-ink, #fff);
+    color: #fff;
     cursor: pointer;
     font-weight: 700;
 }
 
 .game-over-buttons button+button {
-    border-color: #c9bda9;
+    border-color: color-mix(in srgb, var(--game-ink), transparent 65%);
     background: transparent;
-    color: #51483d;
+    color: var(--game-ink);
 }
 
 .game-over-buttons button:hover {
@@ -209,13 +221,19 @@ body[data-game-page] {
 
 @media (min-width: 700px) {
     .game-grid {
-        --cell-size: min(16vw, 112px);
+        --cell-size: min(21vw, 136px);
+    }
+}
+
+@media (max-width: 760px) {
+    .game-grid {
+        --cell-size: min(20vw, 118px);
     }
 }
 
 @media (max-width: 560px) {
     .game-page {
-        width: min(100% - 32px, 900px);
+        width: min(100% - 32px, 1050px);
         padding-top: 16px;
     }
 

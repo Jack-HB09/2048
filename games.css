@@ -1,9 +1,5 @@
-body {
-    background: #fff4d4;
-}
-
 .games-page {
-    color: #26352e;
+    color: var(--site-ink);
     width: min(100% - 40px, var(--content-width));
     min-height: 100vh;
     margin: 0 auto;

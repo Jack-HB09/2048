@@ -6,13 +6,14 @@
     <title>Arcade - Home</title>
     <link rel="stylesheet" href="site.css">
     <link rel="stylesheet" href="home.css">
+    <script src="settings.js" defer></script>
     <script src="game-catalog.js" defer></script>
     <script src="navigation.js" defer></script>
 </head>
 <body>
     <main class="home-page">
         <nav class="site-nav" aria-label="Main navigation">
-            <span class="site-brand">Little Arcade</span>
+            <button class="brand-button" type="button" data-navigation-target="Home">Little Arcade</button>
             <div class="site-nav-actions">
                 <button class="nav-button" type="button" data-navigation-target="games">Browse games</button>
             </div>
@@ -24,15 +25,6 @@
                 <p class="intro">Take a quick break with a puzzle you can play right here in your browser.</p>
                 <button class="primary-button" type="button" data-navigation-target="games">Explore the game library</button>
             </div>
-            <section class="featured-section" aria-labelledby="featured-title">
-                <div class="section-heading">
-                    <div>
-                        <p class="eyebrow">A place to start</p>
-                        <h2 id="featured-title">Featured game</h2>
-                    </div>
-                </div>
-                <div data-featured-game="2048"></div>
-            </section>
         </section>
     </main>
 </body>

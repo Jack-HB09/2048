@@ -40,6 +40,39 @@ const TILE_PALETTES = {
     }
 };
 
+const GAME_PALETTE_THEMES = {
+    classic: {
+        light: {
+            background: "#faf8ef", surface: "#fffdf5", accent: "#edc22e",
+            secondary: "#f2b179", ink: "#4b3822", board: "#bbada0", emptyCell: "#cdc1b4"
+        },
+        dark: {
+            background: "#1e1e1e", surface: "#2d2d2d", accent: "#e5aa28",
+            secondary: "#c78042", ink: "#f0f0f0", board: "#424242", emptyCell: "#383838"
+        }
+    },
+    ocean: {
+        light: {
+            background: "#e0f2fe", surface: "#f0f9ff", accent: "#0284c7",
+            secondary: "#38bdf8", ink: "#0c4a6e", board: "#7dd3fc", emptyCell: "#bae6fd"
+        },
+        dark: {
+            background: "#102b3c", surface: "#19394d", accent: "#0284c7",
+            secondary: "#38bdf8", ink: "#f0f9ff", board: "#20506c", emptyCell: "#27465a"
+        }
+    },
+    forest: {
+        light: {
+            background: "#e8f5e9", surface: "#f4fbf4", accent: "#4caf50",
+            secondary: "#81c784", ink: "#1b5e20", board: "#a5d6a7", emptyCell: "#c8e6c9"
+        },
+        dark: {
+            background: "#19291d", surface: "#25392a", accent: "#4caf50",
+            secondary: "#81c784", ink: "#f1fff2", board: "#35563b", emptyCell: "#304333"
+        }
+    }
+};
+
 const DEFAULT_PALETTE = "classic";
 
 class Grid {
@@ -86,6 +119,12 @@ class Grid {
         }
 
         this.paletteName = paletteName;
+        const themeName = document.documentElement.dataset.siteTheme === "dark" ? "dark" : "light";
+        const theme = GAME_PALETTE_THEMES[paletteName][themeName];
+        Object.entries(theme).forEach(([name, color]) => {
+            const propertyName = name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`);
+            document.body.style.setProperty(`--palette-${propertyName}`, color);
+        });
         this.cells.forEach((cell) => this.styleCell(cell));
     }
 
@@ -229,6 +268,9 @@ colourSelect.addEventListener("change", () => {
 });
 gameGrid.setPalette(colourSelect.value);
 startNewGame();
+document.addEventListener("site-theme-change", () => {
+    gameGrid.setPalette(colourSelect.value);
+});
 
 function handleMove(direction) {
     if (!gameOverElement.hidden) {

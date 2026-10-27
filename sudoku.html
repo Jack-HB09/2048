@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Little Arcade</title>
+    <link rel="stylesheet" href="site.css">
+    <link rel="stylesheet" href="sudoku.css">
+    <script src="settings.js" defer></script>
+    <script src="game-catalog.js" defer></script>
+    <script src="navigation.js" defer></script>
+    <script src="sudoku.js" defer></script>
+</head>
+
+<body data-game-page="sudoku" data-color-scheme="light">
+    <main class="game-page sudoku-page">
+        <nav class="site-nav" aria-label="Main navigation">
+            <button class="brand-button" type="button" data-navigation-target="Home">Little Arcade</button>
+            <div class="site-nav-actions">
+                <button class="nav-button" type="button" data-navigation-target="games">All games</button>
+            </div>
+        </nav>
+        <section class="sudoku-game" aria-labelledby="game-title">
+            <header class="sudoku-header">
+                <div class="game-heading">
+                    <div>
+                        <p class="eyebrow">Puzzle</p>
+                        <h1 id="game-title">Sudoku</h1>
+                    </div>
+                    <p id="game-instructions" class="instructions">Fill each row, column, and 3x3 box with the digits 1-9.</p>
+                </div>
+                <div class="sudoku-options" aria-label="Game controls">
+                    <label class="option-control" for="difficulty-select">
+                        <span class="option-label">Difficulty</span>
+                        <select class="option" id="difficulty-select" name="difficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </label>
+                    <label class="option-control" for="colour-select">
+                        <span class="option-label">Colours</span>
+                        <select class="option" id="colour-select" name="colour">
+                            <option value="classic" style="background-color:#edc22e;color:#514a3d">Classic</option>
+                            <option value="ocean" style="background-color:#0284c7;color:#fff">Ocean</option>
+                            <option value="forest" style="background-color:#4caf50;color:#123d18">Forest</option>
+                        </select>
+                    </label>
+                    <button id="reset-game" class="control-button primary-control" type="button">New game</button>
+                </div>
+            </header>
+            <div class="sudoku-layout">
+                <div class="board-column">
+                    <div id="sudoku-board" class="sudoku-board" role="grid" aria-label="Sudoku board" aria-describedby="game-instructions"></div>
+                    <div class="number-pad" role="group" aria-label="Choose a number">
+                        <button class="number-button" type="button" data-number="1" aria-label="Select 1">1</button>
+                        <button class="number-button" type="button" data-number="2" aria-label="Select 2">2</button>
+                        <button class="number-button" type="button" data-number="3" aria-label="Select 3">3</button>
+                        <button class="number-button" type="button" data-number="4" aria-label="Select 4">4</button>
+                        <button class="number-button" type="button" data-number="5" aria-label="Select 5">5</button>
+                        <button class="number-button" type="button" data-number="6" aria-label="Select 6">6</button>
+                        <button class="number-button" type="button" data-number="7" aria-label="Select 7">7</button>
+                        <button class="number-button" type="button" data-number="8" aria-label="Select 8">8</button>
+                        <button class="number-button" type="button" data-number="9" aria-label="Select 9">9</button>
+                    </div>
+                </div>
+                <aside class="sudoku-sidebar" aria-label="Sudoku tools">
+                    <div class="tool-group mode-group" role="group" aria-label="Cell modes">
+                        <button id="add-button" class="tool-button mode-button is-active" type="button" data-mode="add" aria-label="Add mode" title="Add mode" aria-pressed="true">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                        </button>
+                        <button id="erase-button" class="tool-button mode-button" type="button" data-mode="erase" aria-label="Erase mode" title="Erase mode" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 14 8-9a2 2 0 0 1 3 0l7 7a2 2 0 0 1 0 3l-5 5H8l-5-5a2 2 0 0 1 0-1Z" /><path d="m8 20 8-9" /></svg>
+                        </button>
+                        <button id="pencil-button" class="tool-button mode-button" type="button" data-mode="pencil" aria-label="Pencil mode" title="Pencil mode" aria-pressed="false">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5 11-11a2.1 2.1 0 0 1 3 3l-11 11L3 21l1-4.5Z" /><path d="m13.5 6.5 4 4" /></svg>
+                        </button>
+                    </div>
+                    <div class="tool-group action-group" role="group" aria-label="Puzzle actions">
+                        <button id="hint-button" class="tool-button action-button" type="button" aria-label="Hint" title="Hint">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 22h4M8.5 14.5a7 7 0 1 1 7 0c-.9.6-1.5 1.4-1.5 2.5h-4c0-1.1-.6-1.9-1.5-2.5Z" /></svg>
+                        </button>
+                        <button id="clear-notes-button" class="tool-button action-button" type="button" aria-label="Clear notes in selected cell" title="Clear notes">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 14h10l1-14M9 7V4h6v3" /></svg>
+                        </button>
+                    </div>
+                    <p id="game-status" class="game-status" role="status" aria-live="polite">Choose a mode and number, then select a cell.</p>
+                </aside>
+            </div>
+        </section>
+    </main>
+    <div id="victory-overlay" class="victory-overlay" role="dialog" aria-modal="true" aria-labelledby="victory-title" hidden>
+        <div class="victory-content">
+            <p class="eyebrow">Puzzle complete</p>
+            <h2 id="victory-title">Victory!</h2>
+            <button id="play-again-button" class="control-button primary-control" type="button">Play Again</button>
+        </div>
+    </div>
+</body>
+
+</html>
