@@ -122,10 +122,22 @@ class SudokuGame {
         });
 
         document.addEventListener("keydown", (event) => {
+            if (
+                event.altKey ||
+                event.ctrlKey ||
+                event.metaKey ||
+                (event.target instanceof Element && event.target.closest(
+                    "input, select, textarea, button:not(.sudoku-cell):not(.number-button), [contenteditable]:not([contenteditable='false'])"
+                ))
+            ) {
+                return;
+            }
+
             if (/^[1-9]$/.test(event.key)) {
                 this.selectNumber(Number(event.key));
             } else if (event.key === "Backspace" || event.key === "Delete") {
                 if (this.currentGameMode === "erase") {
+                    event.preventDefault();
                     this.eraseSelectedCell();
                 }
             }

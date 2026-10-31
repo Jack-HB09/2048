@@ -282,6 +282,17 @@ function handleMove(direction) {
 }
 
 document.addEventListener("keydown", (event) => {
+    if (
+        event.altKey ||
+        event.ctrlKey ||
+        event.metaKey ||
+        (event.target instanceof Element && event.target.closest(
+            "input, select, textarea, button, a, [contenteditable]:not([contenteditable='false'])"
+        ))
+    ) {
+        return;
+    }
+
     switch (event.key) {
         case "ArrowUp":
         case "ArrowDown":
